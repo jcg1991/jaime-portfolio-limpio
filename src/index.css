@@ -1,0 +1,135 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 195 100% 50%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 195 100% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 195 100% 50%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-dark text-foreground font-sans antialiased selection:bg-cyan/20 selection:text-cyan;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  /* Glass effect */
+  .glassmorphism {
+    @apply bg-dark-100/70 backdrop-blur-md border border-white/5;
+  }
+  
+  /* Gradient text for highlights */
+  .gradient-text {
+    @apply bg-gradient-to-r from-cyan to-cyan-200 bg-clip-text text-transparent;
+  }
+  
+  /* Reveal animation on scroll */
+  .reveal {
+    @apply opacity-0 translate-y-10 transition-all duration-700;
+  }
+  
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  /* Project card hover effect */
+  .project-card {
+    @apply transition-all duration-300;
+  }
+  
+  .project-card:hover {
+    @apply -translate-y-2 shadow-lg shadow-cyan/10;
+  }
+  
+  /* Skill icon hover effect */
+  .skill-icon {
+    @apply transition-all duration-300;
+  }
+  
+  .skill-icon:hover {
+    @apply text-cyan scale-110;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-cyan to-cyan-200 text-white font-medium px-6 py-3 rounded-lg hover:shadow-lg hover:shadow-cyan/20 transition-all duration-300 ease-in-out;
+  }
+  
+  .btn-secondary {
+    @apply bg-dark-200 text-white font-medium px-6 py-3 rounded-lg border border-white/10 hover:border-cyan/30 transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-300;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-100 rounded-full hover:bg-cyan/30;
+}
+
+/* Remove outline for non-keyboard navigation */
+*:focus:not(:focus-visible) {
+  outline: none;
+}

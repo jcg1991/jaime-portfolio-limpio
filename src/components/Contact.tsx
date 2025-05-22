@@ -1,11 +1,13 @@
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
+  const form = useRef<HTMLFormElement>(null);
+
   const [formState, setFormState] = useState({
-    name: '',
-    email: '',
+    user_name: '',
+    user_email: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,17 +41,28 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    if (!form.current) return;
+
+    emailjs.sendForm(
+      'service_n29nqgf',    // 🔁 Reemplaza con tu SERVICE ID
+      'template_p7uxblm',   // 🔁 Reemplaza con tu TEMPLATE ID
+      form.current,
+      'H2KXRXEloN82rfE2a'     // 🔁 Reemplaza con tu PUBLIC KEY (User ID)
+    )
+    .then(() => {
       setIsSubmitting(false);
       setFormSubmitted(true);
-      setFormState({ name: '', email: '', message: '' });
-      
-      // Reset success message after a while
+      setFormState({ user_name: '', user_email: '', message: '' });
+
       setTimeout(() => {
         setFormSubmitted(false);
       }, 5000);
-    }, 1500);
+    })
+    .catch((error) => {
+      console.error('Error al enviar:', error);
+      setIsSubmitting(false);
+      alert('Hubo un problema al enviar el mensaje. Inténtalo de nuevo.');
+    });
   };
 
   return (
@@ -69,14 +82,14 @@ const Contact = () => {
                 <p className="text-gray-400">Me pondré en contacto contigo lo antes posible.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
+              <form ref={form} onSubmit={handleSubmit}>
                 <div className="mb-6">
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">Nombre</label>
+                  <label htmlFor="user_name" className="block text-sm font-medium mb-2">Nombre</label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    value={formState.name}
+                    id="user_name"
+                    name="user_name"
+                    value={formState.user_name}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-lg focus:ring-cyan focus:border-cyan transition-all outline-none"
                     required
@@ -84,12 +97,12 @@ const Contact = () => {
                 </div>
                 
                 <div className="mb-6">
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
+                  <label htmlFor="user_email" className="block text-sm font-medium mb-2">Email</label>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
-                    value={formState.email}
+                    id="user_email"
+                    name="user_email"
+                    value={formState.user_email}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-lg focus:ring-cyan focus:border-cyan transition-all outline-none"
                     required
